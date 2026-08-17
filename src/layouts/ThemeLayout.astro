@@ -1,0 +1,25 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	bannerImage?: string | null;
+}
+
+const { title, description, bannerImage } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} image={bannerImage ?? undefined}>
+	<div class="mx-auto max-w-4xl px-6 pt-8">
+		<a
+			href="/themes"
+			class="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+		>
+			<Icon name="tabler:arrow-left" size={16} />
+			Back
+		</a>
+	</div>
+	<slot />
+</BaseLayout>

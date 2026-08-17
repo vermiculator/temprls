@@ -1,0 +1,36 @@
+---
+import ThemeLayout from '../../layouts/ThemeLayout.astro';
+import TinaIsland from '@tinacms/astro/TinaIsland.astro';
+import ThemeBody from '../../components/islands/ThemeBody.astro';
+import { getTheme, listThemes, listSmallWorks, listVignettes } from '../../lib/data';
+
+import { islands } from '../../lib/islands';
+
+export async function getStaticPaths() {
+	const themes = await listThemes();
+	return themes.map((node) => ({ params: { slug: node._sys.filename } }));
+}
+
+const slug = (Astro.params.slug ?? '').toString();
+const theme = await getTheme(slug);
+const data = theme.data?.theme;
+if (!data) return new Response('Not Found', { status: 404 });
+
+const layoutProps = {
+	title: data.title ?? '',
+	description: data.description ?? '',
+	bannerImage: data.bannerImage ?? null,
+};
+
+	const allSmallWorks = await listSmallWorks();
+	const smallWorks = allSmallWorks.filter((node) => (node.theme?._sys.filename === data._sys.filename));
+	const allVignettes = await listVignettes();
+	const vignettes = allVignettes.filter((node) => (node.theme?._sys.filename === data._sys.filename));
+
+---
+
+<ThemeLayout {...layoutProps}>
+	<TinaIsland name="theme" wrapper={islands.theme.wrapper} params={{ slug }} primary>
+		<ThemeBody data={data} smallWorks={smallWorks} vignettes={vignettes} />
+	</TinaIsland>
+</ThemeLayout>

@@ -1,0 +1,27 @@
+---
+import { tinaField } from '@tinacms/astro/tina-field';
+import Section from '../ui/Section.astro';
+import { cn } from '../../lib/cn';
+import type { ImageImagePageBlock } from '../../lib/data';
+
+interface Props { data: ImageImagePageBlock }
+
+const { data } = Astro.props;
+---
+<Section>
+	<div class="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2 md:gap-16">
+		{data.title && <h2 data-tina-field={tinaField(data, 'title')} class="text-balance text-3xl font-semibold lg:text-4xl">{data.title}</h2>}
+		<div class={cn('space-y-6', data.swap && 'md:order-2')}>
+			{data.leftImage?.src && (
+				<div data-tina-field={tinaField(data, 'leftImage')} class="bg-background overflow-hidden rounded-2xl border p-2 shadow-lg">
+					<img src={data.leftImage.src} alt={data.leftImage.alt ?? ''} width="1200" height="900" class="aspect-[4/3] w-full rounded-xl border border-border/25 object-cover" />
+				</div>
+			)}
+		</div>
+		{data.rightImage?.src && (
+			<div data-tina-field={tinaField(data, 'rightImage')} class="bg-background overflow-hidden rounded-2xl border p-2 shadow-lg">
+				<img src={data.rightImage.src} alt={data.rightImage.alt ?? ''} width="1200" height="900" class="aspect-[4/3] w-full rounded-xl border border-border/25 object-cover" />
+			</div>
+		)}
+	</div>
+</Section>

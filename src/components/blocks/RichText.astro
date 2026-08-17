@@ -1,0 +1,22 @@
+---
+import { tinaField } from '@tinacms/astro/tina-field';
+import Section from '../ui/Section.astro';
+import TinaMarkdown from '@tinacms/astro/TinaMarkdown.astro';
+import type { RichTextPageBlock } from '../../lib/data';
+
+interface Props { data: RichTextPageBlock }
+
+const { data } = Astro.props;
+---
+
+<Section class="relative overflow-hidden">
+	<div class="relative w-full lg:mx-70 md:mx-35 sm:mx-10">
+		<div class="mb-2 text-center">
+			{data.title && <h1 data-tina-field={tinaField(data, 'title')} class="mt-2 text-4xl font-semibold tracking-tight lg:text-5xl">{data.title}</h1>}
+			{data.description && <p data-tina-field={tinaField(data, 'description')} class="mt-2 text-s font-regular tracking-tight lg:text-m">{data.description}</p>}
+		</div>
+		<div data-tina-field={tinaField(data, 'body')} class="prose text-muted-foreground">
+				<TinaMarkdown content={data.body} />
+		</div>
+	</div>
+</Section>

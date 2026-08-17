@@ -1,0 +1,28 @@
+---
+import { tinaField } from '@tinacms/astro/tina-field';
+import TinaMarkdown from '@tinacms/astro/TinaMarkdown.astro';
+import Section from '../ui/Section.astro';
+import { cn } from '../../lib/cn';
+import type { ImageTextPageBlock } from '../../lib/data';
+
+interface Props { data: ImageTextPageBlock }
+
+const { data } = Astro.props;
+---
+<Section>
+	<div class="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2 md:gap-16">
+		<div class={cn('space-y-6', data.swap && 'md:order-2')}>
+			{data.title && <h2 data-tina-field={tinaField(data, 'title')} class="text-balance text-3xl font-semibold lg:text-4xl">{data.title}</h2>}
+			{data.body && (
+				<div data-tina-field={tinaField(data, 'body')} class="prose prose-lg max-w-none text-muted-foreground">
+					<TinaMarkdown content={data.body} />
+				</div>
+			)}
+		</div>
+		{data.image?.src && (
+			<div data-tina-field={tinaField(data, 'image')} class="bg-background overflow-hidden rounded-2xl border p-2 shadow-lg">
+				<img src={data.image.src} alt={data.image.alt ?? ''} width="1200" height="900" class="aspect-[4/3] w-full rounded-xl border border-border/25 object-cover" />
+			</div>
+		)}
+	</div>
+</Section>

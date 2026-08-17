@@ -1,0 +1,30 @@
+{
+  "seo": {
+    "title": "index:gherk",
+    "description": "researcher, developer, artist, human, earthworm",
+    "siteOwner": "Rowan Lucas Smith",
+    "logo": "/yuuon2.jpg"
+  },
+  "nav": [
+    {
+      "title": "about",
+      "link": "/about"
+    },
+    {
+      "title": "currently",
+      "link": "/currently"
+    }
+  ],
+  "contactLinks": [
+    {
+      "title": "code",
+      "link": "https://codeberg.org/gherk",
+      "icon": "tabler:code"
+    },
+    {
+      "title": "email",
+      "link": "mailto:rowanlucas@pm.me",
+      "icon": "tabler:mail-share"
+    }
+  ]
+}

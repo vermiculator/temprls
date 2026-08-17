@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getConfig, listCategories, listSmallWorks} from '../lib/data';
+
+const categories = await listCategories();
+const config = (await getConfig()).data?.config ?? null;
+
+
+const allSmallWorks = await listSmallWorks();
+const pinned = allSmallWorks.filter((node) => ( node.pinnedOnEntryPage ));
+
+---
+
+<BaseLayout
+	title={config?.seo?.title ?? 'past'}
+	description={config?.seo?.description ?? ''}
+>
+	<main class="mx-auto max-w-5xl px-6 pt-2 pb-10">
+		<h1 class="mb-8 text-4xl font-semibold text-center tracking-tight">past</h1>
+		<ul class="grid list-none gap-6 p-0 sm:grid-cols-2">
+			{categories.map((category) => (
+				<li>
+					<a href={`/${category._sys.filename}${category.currentOnly ? '' : '/past' }`} class="group block overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-md">
+						<div class="p-6">
+							<h2 class="font-semibold group-hover:underline">{category.title}</h2>
+						</div>
+					</a>
+				</li>
+			))}
+		</ul>
+
+		{pinned && (
+			<div class="pt-15 max-w-none mx-auto px-6 pt-2 pb-10">
+				<ul class="grid list-none gap-2 p-0 sm:grid-cols-3">
+					{pinned.map((item) => (
+						<li>
+							<a href={`/i/${item._sys.filename}/`} class="group block overflow-hidden rounded-l border bg-card shadow-sm transition-shadow hover:shadow-md">
+								{item.previewImage && (
+									<img width={360} height={180} src={item.previewImage} alt={item.title ?? ''} class="aspect-video w-auto object-cover" />
+								)}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+		)}	
+
+	</main>
+</BaseLayout>

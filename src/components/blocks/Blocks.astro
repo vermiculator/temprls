@@ -1,0 +1,40 @@
+---
+import { tinaField } from '@tinacms/astro/tina-field';
+import Callout from './Callout.astro';
+import Cta from './Cta.astro';
+import Hero from './Hero.astro';
+import ImageText from './ImageText.astro';
+import ImageImage from './ImageImage.astro';
+import ImageFull from './ImageFull.astro';
+import VideoFull from './VideoFull.astro';
+import RichText from './RichText.astro';
+import type { CmsAnyPage } from '../../lib/data';
+
+interface Props {
+	data?: CmsAnyPage | null;
+}
+
+const { data } = Astro.props;
+const blocks = (data?.blocks ?? []).filter(b => b !== null);
+blocks.push({__typename: 'PageBlocksRichText', body:data?.content});
+---
+
+{blocks.map((block, i) => {
+	const rendered = (() => {
+		switch (block.__typename) {
+			case 'PageBlocksCallout': return <Callout data={block} />;
+			case 'PageBlocksCta': return <Cta data={block} />;
+			case 'PageBlocksHero': return <Hero data={block} />;
+			case 'PageBlocksImageText': return <ImageText data={block} />;
+			case 'PageBlocksImageImage': return <ImageImage data={block} />;
+			case 'PageBlocksImageFull': return <ImageFull data={block} />;
+			case 'PageBlocksVideoFull': return <VideoFull data={block} />;
+			case 'PageBlocksRichText': return <RichText data={block} />;
+		}
+	})();
+	return (
+		<>
+			<div data-tina-field={tinaField(block)}>{rendered}</div>
+		</>
+	);
+})}

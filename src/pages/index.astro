@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TinaIsland from '@tinacms/astro/TinaIsland.astro';
+import PageBody from '../components/islands/PageBody.astro';
+import { getConfig, getPage } from '../lib/data';
+import { islands } from '../lib/islands';
+
+const slug = 'home';
+const page = await getPage(slug);
+const data = page.data?.page;
+if (!data) return new Response('Not Found', { status: 404 });
+const config = (await getConfig()).data?.config ?? null;
+---
+
+<BaseLayout
+	title={data.title || config?.seo?.title || ''}
+	description={config?.seo?.description ?? ''}
+>
+	<TinaIsland name="page" wrapper={islands.page.wrapper} params={{ slug }} primary>
+		<PageBody data={data} />
+	</TinaIsland>
+</BaseLayout>

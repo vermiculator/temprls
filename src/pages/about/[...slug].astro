@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TinaIsland from '@tinacms/astro/TinaIsland.astro';
+import PageBody from '../../components/islands/PageBody.astro';
+import { getConfig, getPage, listPages } from '../../lib/data';
+import { islands } from '../../lib/islands';
+
+export async function getStaticPaths() {
+	const allPages = await listPages();
+	const pages = allPages
+		.map((node) => node._sys.filename)
+		.map((slug) => ({ params: { slug: (slug) } }));
+	return pages;
+}
+
+const slug = (Astro.params.slug ?? '').toString();
+const fixedSlug = (slug == 'about' || slug == 'about/' || slug == 'about/index' || slug == 'about/index/') ? '' : slug;
+const page = await getPage('about/' + fixedSlug);
+const data = page.data?.page;
+if (!data) return new Response('Not Found', { status: 404 });
+const config = (await getConfig()).data?.config ?? null;
+
+---
+
+<BaseLayout
+	title={data.pageTitle || config?.seo?.title || ''}
+	description={config?.seo?.description ?? ''}
+>
+	<TinaIsland name="page" wrapper={islands.page.wrapper} params={{ slug }} primary>
+		<PageBody data={data} />
+	</TinaIsland>
+</BaseLayout>
