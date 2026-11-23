@@ -2,7 +2,6 @@ import type { Collection } from 'tinacms';
 import { HeroPageBlockSchema } from '../../src/components/blocks/hero.template';
 import { CtaPageBlockSchema } from '../../src/components/blocks/cta.template';
 import { CalloutPageBlockSchema } from '../../src/components/blocks/callout.template';
-import { VideoFullPageBlockSchema } from '../../src/components/blocks/videoFull.template';
 import { ImageTextPageBlockSchema } from '../../src/components/blocks/imagetext.template';
 import { ImageImagePageBlockSchema } from '../../src/components/blocks/imageimage.template';
 import { ImageFullPageBlockSchema } from '../../src/components/blocks/imageFull.template';
@@ -40,7 +39,6 @@ export const PageCollection: Collection = {
 				CalloutPageBlockSchema,
 				CtaPageBlockSchema,
 				ImageFullPageBlockSchema,
-				VideoFullPageBlockSchema,
 				ImageTextPageBlockSchema,
 				ImageImagePageBlockSchema,
 				RichTextPageBlockSchema

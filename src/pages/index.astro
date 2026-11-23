@@ -13,7 +13,8 @@ const config = (await getConfig()).data?.config ?? null;
 ---
 
 <BaseLayout
-	title={data.title || config?.seo?.title || ''}
+	isHome={true}
+	title={data.pageTitle || config?.seo?.title || ''}
 	description={config?.seo?.description ?? ''}
 >
 	<TinaIsland name="page" wrapper={islands.page.wrapper} params={{ slug }} primary>

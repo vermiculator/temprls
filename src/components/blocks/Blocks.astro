@@ -6,7 +6,6 @@ import Hero from './Hero.astro';
 import ImageText from './ImageText.astro';
 import ImageImage from './ImageImage.astro';
 import ImageFull from './ImageFull.astro';
-import VideoFull from './VideoFull.astro';
 import RichText from './RichText.astro';
 import type { CmsAnyPage } from '../../lib/data';
 
@@ -28,7 +27,6 @@ blocks.push({__typename: 'PageBlocksRichText', body:data?.content});
 			case 'PageBlocksImageText': return <ImageText data={block} />;
 			case 'PageBlocksImageImage': return <ImageImage data={block} />;
 			case 'PageBlocksImageFull': return <ImageFull data={block} />;
-			case 'PageBlocksVideoFull': return <VideoFull data={block} />;
 			case 'PageBlocksRichText': return <RichText data={block} />;
 		}
 	})();

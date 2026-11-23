@@ -3,18 +3,9 @@
     "title": "index:gherk",
     "description": "researcher, developer, artist, human, earthworm",
     "siteOwner": "Rowan Lucas Smith",
-    "logo": "/PXL_20260515_100528313.jpg"
+    "logo": "/pixels.png"
   },
-  "nav": [
-    {
-      "title": "about",
-      "link": "/about"
-    },
-    {
-      "title": "currently",
-      "link": "/currently"
-    }
-  ],
+  "nav": [],
   "contactLinks": [
     {
       "title": "code",
@@ -23,7 +14,7 @@
     },
     {
       "title": "email",
-      "link": "mailto:rowanlucas@pm.me",
+      "link": "mailto:dev.rowanlucas@pm.me",
       "icon": "tabler:mail-share"
     }
   ]

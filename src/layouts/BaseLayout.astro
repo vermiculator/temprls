@@ -5,14 +5,17 @@ import Footer from '../components/Footer.astro';
 import TinaIsland from '@tinacms/astro/TinaIsland.astro';
 import { getConfig } from '../lib/data';
 import { islands } from '../lib/islands';
+import { Icon } from 'astro-icon/components';
+
 
 interface Props {
+	isHome: boolean;
 	title: string;
 	description: string;
 	image?: string;
 }
 
-const { title, description, image } = Astro.props;
+const { isHome, title, description, image } = Astro.props;
 const config = (await getConfig()).data?.config ?? null;
 ---
 
@@ -25,6 +28,17 @@ const config = (await getConfig()).data?.config ?? null;
 		<TinaIsland name="global" wrapper={islands.global.wrapper}>
 			<Header config={config} />
 		</TinaIsland>
+	{ !isHome &&
+		<div class="mx-auto max-w-4xl px-6 pt-8">
+		<a
+			href={`/`}
+			class="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+		>
+			<Icon name="tabler:arrow-left" size={16} />
+			Back
+		</a>
+		</div>
+	}
 		<slot />
 		<TinaIsland name="global-footer" wrapper={islands['global-footer'].wrapper}>
 			<Footer config={config} />
